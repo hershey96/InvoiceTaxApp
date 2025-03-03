@@ -1,0 +1,173 @@
+# Project Structure for InvoiceTaxApp
+
+This is a recommended project structure for your InvoiceTaxApp to organize it properly on GitHub.
+
+```
+InvoiceTaxApp/
+│
+├── .github/                      # GitHub specific files
+│   └── workflows/                # GitHub Actions workflows (optional)
+│       └── build.yml             # Automated build workflow
+│
+├── data/                         # Default data directory (created on first run)
+│
+├── exports/                      # Default exports directory (created on first run)
+│
+├── invoicetaxapp/                # Main package directory
+│   ├── __init__.py               # Package initialization
+│   ├── app.py                    # Main application entry point
+│   ├── calculator.py             # BusinessTaxCalculator class
+│   ├── pdf_extractor.py          # PdfInvoiceExtractor class
+│   └── resources/                # Application resources
+│       └── icon.ico              # Application icon
+│
+├── tests/                        # Unit tests (optional)
+│   ├── __init__.py
+│   ├── test_calculator.py
+│   └── test_pdf_extractor.py
+│
+├── .gitignore                    # Git ignore file
+├── LICENSE                       # License file
+├── README.md                     # Project documentation
+├── auto_installer.py             # The automated installer script
+├── requirements.txt              # Python dependencies
+└── setup.py                      # Installation script
+```
+
+## Key Files Description
+
+### 1. Main Application Files
+
+#### invoicetaxapp/app.py
+This will contain your main application code with the UI components.
+
+#### invoicetaxapp/calculator.py
+Contains the `BusinessTaxCalculator` class that handles all the tax calculations.
+
+#### invoicetaxapp/pdf_extractor.py
+Contains the `PdfInvoiceExtractor` class for PDF invoice processing.
+
+### 2. Installation and Building Files
+
+#### requirements.txt
+Lists all the Python packages required by your application:
+```
+tkcalendar>=1.6.1
+pdfplumber>=0.7.6
+pillow>=9.3.0
+pyinstaller>=5.6.0
+```
+
+#### setup.py
+Standard Python package installation script:
+```python
+from setuptools import setup, find_packages
+
+setup(
+    name="invoicetaxapp",
+    version="1.0.0",
+    packages=find_packages(),
+    install_requires=[
+        "tkcalendar>=1.6.1",
+        "pdfplumber>=0.7.6",
+        "pillow>=9.3.0",
+    ],
+    entry_points={
+        'console_scripts': [
+            'invoicetaxapp=invoicetaxapp.app:main',
+        ],
+    },
+    author="YOUR NAME",
+    author_email="your.email@example.com",
+    description="Business invoice management and tax calculation application",
+    python_requires='>=3.7',
+    include_package_data=True,
+)
+```
+
+#### auto_installer.py
+The comprehensive installer script that:
+1. Checks Python version
+2. Installs dependencies
+3. Builds executables
+4. Creates installers (Windows only)
+
+### 3. Documentation and Configuration Files
+
+#### README.md
+Documentation for your project including:
+- Features
+- Installation instructions
+- Usage guide
+- Screenshots
+
+#### .gitignore
+Git ignore file to exclude unnecessary files:
+```
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Distribution / packaging
+installer/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Application data
+data/*.json
+exports/*.csv
+exports/*.txt
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+```
+
+## Splitting Your Code into Multiple Files
+
+To maintain your code properly, you'll need to split your current monolithic script into multiple Python modules:
+
+1. **app.py**: Contains the `InvoiceTaxApp` class and other UI code
+2. **calculator.py**: Contains the `BusinessTaxCalculator` class
+3. **pdf_extractor.py**: Contains the `PdfInvoiceExtractor` class
+
+This separation makes the code more maintainable and improves readability.
